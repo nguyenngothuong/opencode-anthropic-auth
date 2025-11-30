@@ -130,7 +130,13 @@ export async function AnthropicAuthPlugin({ client }) {
 
               // Add oauth beta and deduplicate
               const mergedBetas = [
-                ...new Set(["oauth-2025-04-20", ...incomingBetasList]),
+                ...new Set([
+                  "oauth-2025-04-20",
+                  "claude-code-20250219",
+                  "interleaved-thinking-2025-05-14",
+                  "fine-grained-tool-streaming-2025-05-14",
+                  ...incomingBetasList,
+                ]),
               ].join(",");
 
               const headers = {
