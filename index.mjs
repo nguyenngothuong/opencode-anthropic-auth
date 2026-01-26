@@ -164,20 +164,19 @@ export async function AnthropicAuthPlugin({ client }) {
                 }
               }
 
+              // Preserve all incoming beta headers while ensuring OAuth requirements
               const incomingBeta = requestHeaders.get("anthropic-beta") || "";
               const incomingBetasList = incomingBeta
                 .split(",")
                 .map((b) => b.trim())
                 .filter(Boolean);
 
-              const includeClaudeCode = incomingBetasList.includes(
-                "claude-code-20250219",
-              );
-
-              const mergedBetas = [
+              const requiredBetas = [
                 "oauth-2025-04-20",
                 "interleaved-thinking-2025-05-14",
-                ...(includeClaudeCode ? ["claude-code-20250219"] : []),
+              ];
+              const mergedBetas = [
+                ...new Set([...requiredBetas, ...incomingBetasList]),
               ].join(",");
 
               requestHeaders.set("authorization", `Bearer ${auth.access}`);
