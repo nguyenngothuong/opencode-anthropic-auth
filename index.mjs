@@ -178,6 +178,7 @@ export async function AnthropicAuthPlugin({ client }) {
               const requiredBetas = [
                 "oauth-2025-04-20",
                 "interleaved-thinking-2025-05-14",
+                "adaptive-thinking-2026-01-28",
               ];
               const mergedBetas = [
                 ...new Set([...requiredBetas, ...incomingBetasList]),
